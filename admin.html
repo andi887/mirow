@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - ANDIKA JAYA</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="admin-page">
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="header-brand">
+      <h1>ANDIKA JAYA</h1>
+      <p>Panel Administrator</p>
+    </div>
+    <div class="header-user">
+      <span id="adminName">Admin</span>
+      <button id="btnLogout" class="btn-logout">Keluar</button>
+    </div>
+  </header>
+
+  <!-- TAB NAVIGATION -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="buat-user">👤 Buat User</button>
+    <button class="tab-btn" data-tab="input-nota">📝 Input Nota</button>
+    <button class="tab-btn" data-tab="rekap">📊 Rekap Keseluruhan</button>
+    <button class="tab-btn" data-tab="chat">💬 Live Chat</button>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- TAB 1: BUAT USER -->
+    <section id="tab-buat-user" class="tab-content active">
+      <div class="card">
+        <h2>Buat User Baru</h2>
+        <form id="formCreateUser">
+          <div class="form-group">
+            <label for="newUserName">Nama Lengkap</label>
+            <input type="text" id="newUserName" required placeholder="Contoh: Budi Santoso" />
+          </div>
+          <div class="form-group">
+            <label for="newUserEmail">Email (untuk login)</label>
+            <input type="email" id="newUserEmail" required placeholder="budi@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="newUserPassword">Password</label>
+            <input type="password" id="newUserPassword" required minlength="6" placeholder="Min. 6 karakter" />
+          </div>
+          <div class="form-group">
+            <label for="newUserRole">Role</label>
+            <select id="newUserRole" required>
+              <option value="user">User (Pembeli/Supplier)</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-primary">SIMPAN USER</button>
+          <div id="createUserMessage" class="message"></div>
+        </form>
+
+        <h3 style="margin-top:30px;">Daftar User Terdaftar</h3>
+        <div class="table-responsive">
+          <table id="tableUsers" class="table-formal">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Tanggal Dibuat</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: INPUT NOTA -->
+    <section id="tab-input-nota" class="tab-content">
+      <div class="card">
+        <h2>Input Nota Pembelian</h2>
+
+        <!-- KOP NOTA -->
+        <div class="kop-nota">
+          <h3>ANDIKA JAYA</h3>
+          <p>Jl. Poros Pomako, Mimika Timur, Papua</p>
+          <p>No HP: 085315007433</p>
+          <p class="kop-title">NOTA PEMASUKAN HASIL LAUT</p>
+        </div>
+
+        <form id="formNota">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="notaUser">Kepada (User)</label>
+              <select id="notaUser" required>
+                <option value="">-- Pilih User --</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="notaTanggal">Tanggal</label>
+              <input type="date" id="notaTanggal" required />
+            </div>
+          </div>
+
+          <!-- TABEL ITEM DINAMIS -->
+          <h4 style="margin:20px 0 10px;">Daftar Barang</h4>
+          <div class="table-responsive">
+            <table id="tableItems" class="table-formal">
+              <thead>
+                <tr>
+                  <th style="width:40px;">No</th>
+                  <th>Jenis</th>
+                  <th>Nama Ikan/Udang</th>
+                  <th style="width:100px;">Berat (Kg)</th>
+                  <th style="width:150px;">Harga/Kg (Rp)</th>
+                  <th style="width:150px;">Subtotal (Rp)</th>
+                  <th style="width:60px;">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="itemsBody"></tbody>
+              <tfoot>
+                <tr>
+                  <th colspan="5" style="text-align:right;">TOTAL NOTA:</th>
+                  <th id="totalNota" colspan="2">Rp 0</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <button type="button" id="btnAddRow" class="btn-secondary">+ Tambah Baris</button>
+          <button type="submit" class="btn-primary" style="margin-left:10px;">SIMPAN NOTA</button>
+          <div id="notaMessage" class="message"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- TAB 3: REKAP KESELURUHAN -->
+    <section id="tab-rekap" class="tab-content">
+      <div class="card">
+        <h2>Rekap Keseluruhan Pembelian</h2>
+        <div class="summary-box">
+          <div class="summary-item">
+            <span class="summary-label">Total Transaksi</span>
+            <span id="rekapTotalTransaksi" class="summary-value">0</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Total Berat (Kg)</span>
+            <span id="rekapTotalBerat" class="summary-value">0</span>
+          </div>
+          <div class="summary-item highlight">
+            <span class="summary-label">Grand Total (Rp)</span>
+            <span id="rekapGrandTotal" class="summary-value">Rp 0</span>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table id="tableRekap" class="table-formal">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama User</th>
+                <th>Jumlah Nota</th>
+                <th>Total Berat (Kg)</th>
+                <th>Total Nominal (Rp)</th>
+                <th>Update Terakhir</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top:30px;">Detail Semua Nota</h3>
+        <div class="table-responsive">
+          <table id="tableAllNotas" class="table-formal">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>User</th>
+                <th>Jumlah Item</th>
+                <th>Total Nota (Rp)</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: LIVE CHAT -->
+    <section id="tab-chat" class="tab-content">
+      <div class="card">
+        <h2>Live Chat</h2>
+        <div id="chatBox" class="chat-box"></div>
+        <form id="formChat" class="chat-form">
+          <input type="text" id="chatInput" placeholder="Ketik pesan..." required autocomplete="off" />
+          <button type="submit" class="btn-primary" style="width:auto;padding:10px 20px;">Kirim</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
