@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - ANDIKA JAYA</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="login-page">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h1>ANDIKA JAYA</h1>
+        <p class="subtitle">Sistem Nota Pembelian Ikan & Udang</p>
+        <p class="address">Jl. Poros Pomako, Mimika Timur, Papua</p>
+      </div>
+
+      <form id="loginForm" autocomplete="on">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="contoh@email.com" />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="Masukkan password" />
+        </div>
+
+        <button type="submit" id="btnLogin" class="btn-primary">MASUK</button>
+
+        <div id="loginMessage" class="message"></div>
+      </form>
+
+      <div class="login-footer">
+        <small>Hubungi Admin jika belum memiliki akun<br/>HP: 085315007433</small>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
